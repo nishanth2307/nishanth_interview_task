@@ -1,0 +1,15 @@
+.nav-wrapper{
+    background: #3CACBC;
+    padding: 1rem 0;  
+    color:#fff;
+}
+
+.nav-content{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.arrow-left{
+    padding:0 1.5rem;
+}

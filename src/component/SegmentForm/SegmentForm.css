@@ -1,0 +1,107 @@
+.segment-form-container{
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.form-wrapper label{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.form-wrapper input{
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.form-wrapper input:focus{
+    outline:none;
+}
+
+.form-wrapper span{
+    font-size: 12px;
+}
+
+.task-container{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 12px;
+    column-gap: 1.5rem;
+}
+
+.circle-container{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dropdown-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+}
+
+.dropdown-wrapper a{
+    color:#1bc677;
+    font-size: 12px;
+}
+
+.newdropdown-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid lightblue;
+    padding: 1rem
+}
+
+.dropdownContainer{
+    display: flex;
+    align-items: center;
+}
+
+.footer-content{
+    position: absolute;
+    bottom: 0px;
+    background: #e2e5e6;
+    padding: 1rem 1rem;
+    color: #fff;
+    width: 100%;
+}
+
+.save-button{
+    padding: 0.5rem;
+    color: #fff;
+    background: #378962;
+    border: none;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.cancel-button{
+    padding: 0.5rem;
+    color: red;
+    background: #eeeeee;
+    border: none;
+    border-radius: 5px;
+    margin-right: 1rem;
+}

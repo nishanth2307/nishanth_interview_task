@@ -1,0 +1,17 @@
+.segment-container{
+    width:100%;
+    height: 100%;
+
+}
+
+.segment-wrapper{
+   margin: 4rem 1rem;
+}
+
+.segment-wrapper button{
+    padding: 1rem;
+    border-radius: 5px;
+    background-color:#256C74;
+    border: none;
+    color:#fff
+}

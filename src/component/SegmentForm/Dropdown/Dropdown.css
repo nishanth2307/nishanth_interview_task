@@ -1,0 +1,17 @@
+.dropdown{
+    width:70%;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.dropdown select:focus{
+    outline: none;
+}
+
+.buttonWrapper button{
+    background-color: #d3f4fc;
+    border: none;
+    color:#256C74;
+    margin-left:1rem;
+}
