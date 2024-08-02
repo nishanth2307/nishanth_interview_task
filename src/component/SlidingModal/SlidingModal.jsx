@@ -14,7 +14,7 @@ const SlidingModal = ({ isOpen, onClose, children}) =>{
                     <button className="close-button" onClick={onClose}>
                         <span className='material-symbols-outlined'>close_small</span>
                     </button>
-                <SegmentForm />
+                {children}
             </div>
         </div>
       </>

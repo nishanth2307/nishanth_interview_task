@@ -21,7 +21,7 @@ const Segment = () => {
             </div> */}
          </div>
           <SlidingModal isOpen={isModalOpen} onClose={handleModal}>
-            <SegmentForm onClick={handleModal}/>
+            <SegmentForm onClose={handleModal}/>
           </SlidingModal>
       </section>
     )

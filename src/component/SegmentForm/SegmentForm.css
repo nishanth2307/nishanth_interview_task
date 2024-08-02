@@ -59,11 +59,19 @@
     flex-direction: column;
     padding: 0.5rem 1rem;
     gap: 0.5rem;
+    border: 1px solid lightskyblue;
+    margin: 0 0.8rem;
 }
 
-.dropdown-wrapper a{
+/* .dropdown-wrapper a{
     color:#1bc677;
     font-size: 12px;
+} */
+
+#schema-container{
+    color:#1bc677;
+    font-size: 12px;
+    padding: 0.5rem 1rem;
 }
 
 .newdropdown-wrapper{
@@ -77,6 +85,7 @@
 .dropdownContainer{
     display: flex;
     align-items: center;
+
 }
 
 .footer-content{
@@ -104,4 +113,8 @@
     border: none;
     border-radius: 5px;
     margin-right: 1rem;
+}
+
+.linkDisabled {
+    cursor: not-allowed;
 }

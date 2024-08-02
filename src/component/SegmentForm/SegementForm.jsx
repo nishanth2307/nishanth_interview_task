@@ -1,28 +1,30 @@
-import React,{useEffect, useState} from 'react'
+import React,{ useState } from 'react'
+import axios from 'axios'
+
 import { options } from '../../utils/data'
 import './SegmentForm.css'
 import Dropdown from './Dropdown/Dropdown'
 
-const SegmentForm = ({onClick}) => {
+const SegmentForm = ({onClose = ()=>{}}) => {
 
-   const [isDropDownOpen , setIsDropDownOpen] = useState(false)
-   const [selectedDropdown , setSelectedDropdown] = useState([]);
+   const [selectedDropdown , setSelectedDropdown] = useState([{label:'Add schema to segment' , value:'Add schema to segment'}]);
    const [selectedvalues , setSelectedValues] = useState([]);
    const [segmentName , setSegmentName] = useState('')
+   const [error , setError] = useState('')
 
-   const openDropDown = () => setIsDropDownOpen(true)
+   const openDropDown = () => {
+    if(selectedvalues.length === selectedDropdown.length){
+        setSelectedDropdown((prev)=>[...prev,{label:'Add schema to segment' , value:'Add schema to segment'}])
+    }
+   }
 
    const handleSelect = (event , index) => {
-      const dropdown = [...selectedDropdown]
-      let prevValue = dropdown[index].value
+       
+    const dropdown = [...selectedDropdown];
+    const currentValue = event.target.value;
 
-      const currentValue = event.target.value;
-
-      dropdown[index].value = currentValue
-      dropdown[index].label = event.target.options[event.target.selectedIndex].text
-      if(prevValue === "Add schema to segment"){
-        dropdown.push({label:'Add schema to segment' , value:'Add schema to segment'})
-     }
+      dropdown[index].value = currentValue;
+      dropdown[index].label = event.target.options[event.target.selectedIndex].text;
      setSelectedValues((prev)=>{
         let tmp = prev;
         tmp[index] = currentValue;
@@ -32,10 +34,57 @@ const SegmentForm = ({onClick}) => {
    }
 
    const handleremove = (removingIndex) =>{
-       
+    setSelectedValues((prev)=>{
+        return prev.filter((value,index)=>index !== removingIndex)
+    });
+    setSelectedDropdown((prev)=>{
+        return prev.filter((value,index)=>index !== removingIndex)
+    });
    }
 
-   const handleNameSegment = (e) => setSegmentName(e.target.value)
+   const handleNameSegment = (e) => setSegmentName(e.target.value);
+
+   const postSchema = async (reqBody) => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = 'https://webhook.site/8ab4809e-e1bc-40c8-bfd0-1fbd05a78e79';
+        return await axios.post(proxyUrl+targetUrl,reqBody,{
+            headers:{
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin':'*'
+            },
+            
+        })
+   }
+
+   const resetForm = ()=>{
+       setSelectedDropdown([{label:'Add schema to segment' , value:'Add schema to segment'}]);
+       setSelectedValues([]);
+       setSegmentName('');
+   }
+
+   const handleSubmit = () => {
+    if(segmentName && segmentName.trim().length && selectedDropdown.length === selectedvalues.length){
+        setError('')
+        const requestBody = {
+            segment_name: segmentName,
+            schema: selectedDropdown.map((schema)=>{
+                console.log("schema :",schema);
+                return { [schema?.value] : schema?.label}
+            })
+        }
+        postSchema(requestBody).then((res)=>{
+            console.log(res , 'res')
+            alert("succesfully save your schema ");
+            resetForm();
+        }).catch((error)=>{
+            alert("Sorry unexpected error while submiting your schema");
+            console.error("Error : ",error);
+        })
+        console.log(requestBody);
+    }else{
+       setError('Please fill all the required fields*')
+    }
+   }
 
 
     return(
@@ -59,7 +108,7 @@ const SegmentForm = ({onClick}) => {
               </div>
             </div>
          </div>
-         <div className='dropdown-wrapper'>
+         <div className={`dropdown-wrapper `}>
             {
                 selectedDropdown.map((val , index) => {
                     return(
@@ -81,11 +130,15 @@ const SegmentForm = ({onClick}) => {
                     )
                 })
             }
-            <a href="#" onClick={openDropDown}>+ Add new schema</a>
          </div>
+            <a id="schema-container"href="#" className={selectedvalues.length !== selectedDropdown.length ? 'linkDisabled' : ''} onClick={openDropDown}>+ Add new schema</a>
+         <p style={{color:'red',fontSize:'14px',padding:'0 1rem'}}>{error}</p>
          <div className='footer-content'>
-            <button className='save-button'>Save the Segment</button>
-            <button className='cancel-button' onClick={onClick}>Cancel</button>
+            <button className='save-button' onClick={handleSubmit}>Save the Segment</button>
+            <button className='cancel-button' onClick={()=>{
+                resetForm();
+                onClose();
+            }}>Cancel</button>
          </div>
       </section>
     )
